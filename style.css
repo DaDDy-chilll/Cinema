@@ -1,0 +1,163 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Kanit&display=swap');
+:root {
+    --primary-color: #3E8BFF;
+    --secondary-color: #0E8BFF;
+    --tertiary-color:#B4C9FF;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    /* justify-content: center; */
+    /* align-items: center; */
+    flex-direction: column;
+}
+
+.progress_bar {
+    width: 100%;
+    height: 10px;
+    /* background-color: red; */
+    margin-top: 5%;
+    display: flex;
+    align-items: center;
+    padding: 0 10%;
+}
+
+.progress_bar .circle {
+    width: 20px;
+    height: 20px;
+    border-radius: 100%;
+    position: relative;
+}
+
+.circle::after {
+    position: absolute;
+    bottom: -25px;
+
+    font-size: 1rem;
+    font-family: "Inter", sans-serif;
+    text-transform: capitalize;
+}
+
+.circle1 {
+    background-color: var(--primary-color);
+}
+
+.circle1::after {
+    content: "checkout";
+    right: -25px;
+}
+
+.circle2 {
+    background-color: gray
+}
+
+.circle2::after {
+    content: "Paid";
+    right: -5px;
+}
+
+.circle3 {
+    background-color: gray
+}
+
+.circle3::after {
+    content: "Payment Success";
+    right: -70px;
+    width: 145px;
+}
+
+.progress_bar .line {
+    height: 50%;
+    width: 50%;
+    background-color: gray;
+}
+
+
+/* Main Section Start */
+.container{
+    margin-top: 2%;
+    display: flex;
+}
+
+.container .container_left{
+    padding: 0 2%;
+}
+
+.container_left .movie_detail_container h1,
+.container_left .payment_method_container h1{
+    font-family: "Kanit", sans-serif;
+    text-transform: capitalize;
+    font-size: 2rem;
+    margin: 1% 0;
+}
+
+.movie_detail {
+    width: 100%;
+    padding: 0 2%;
+    display: flex;
+    align-items: center;
+}
+
+.movie_detail .movie_poster{
+    width: 15%;
+}
+
+.movie_detail .movie_des{
+    width: 100%;
+    margin: 0 2%;
+}
+
+.movie_detail .movie_des span{
+    display: flex;
+}
+
+.movie_des span p{
+    font-family: "Inter", sans-serif;
+    text-transform: capitalize;
+}
+
+.movie_des span p:first-child{
+    margin-right: 2%;
+}
+
+
+.movie_des span p:last-child{
+    font-weight: bold;
+}
+
+.payment_method_container .payment_methods{
+    padding: 0 2%;
+}
+
+.payment_methods .bank_pay,
+.payment_methods .mobile_pay{
+    width: 100%;
+    background-color: var(--tertiary-color);
+    display: flex;
+    align-items: center;
+    padding: 0 2%;
+    border-radius: .5vmax;
+    border: 2px solid var(--primary-color);
+    margin: 2% 0;
+}
+
+
+.bank_pay p,
+.mobile_pay p{
+    text-transform: capitalize;
+    font-family: "Inter", sans-serif;
+    font-size: 1.3rem;
+    margin-right: 20%;
+    color: white;
+}
+
+.bank_pay img,
+.mobile_pay img{
+    width: 5%;
+}
