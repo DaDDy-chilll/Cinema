@@ -15,6 +15,14 @@ const json = {
   ],
 };
 
+
+
+$('#movieName').text(json.movie)
+$('#showDate').text(json.showDate)
+$('#showTime').text(json.showTime)
+$('#cinema').text(json.cinema)
+
+
 $("#paymentCloseBtn").click(() => {
   $("#paymentProvider").fadeOut(200, () => {
     $("#providersContainer").empty();
