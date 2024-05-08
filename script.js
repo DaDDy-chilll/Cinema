@@ -24,7 +24,9 @@ const totalPrice = totalFoodPrice + totalSeatPrice;
 const tax = 10
 const addTaxPrice = parseInt(totalPrice * tax /100);
 const totalPriceWithTax = totalPrice + addTaxPrice;
+const userInfo = {};
 
+// Getters and Setter for User Information
 (() => {
   $('#movieName').text(movie);
   $('#showDate').text(showDate);
@@ -41,7 +43,11 @@ const totalPriceWithTax = totalPrice + addTaxPrice;
 $("#paymentCloseBtn").click(() => {
   $("#paymentProvider").fadeOut(200, () => {
     $("#providersContainer").empty();
+    $('#number').remove();
+    $('#overLay').fadeOut(205)
   });
+  
+
 });
 
 $("#mobilePay").click(() => {
@@ -51,83 +57,122 @@ $("#mobilePay").click(() => {
     alt="cbpay"
     width="12.6%"
     class='mobile'
-    id='mobilePayImage'
+    value='cbpay'
+    onClick='clickEvent(this)'
   />
   <img
     src="assets/payment-provider/mobile/kbzpay.png"
     alt="kpay"
     width="12.6%"
     class='mobile'
-    id='mobilePayImage'
+    value='kbzpay'
+    onClick='clickEvent(this)'
   />
   <img
     src="assets/payment-provider/mobile/okpay.png"
     alt="okpay"
     width="12.6%"
     class='mobile'
-    id='mobilePayImage'
+    value='okpay'
+    onClick='clickEvent(this)'
   />
   <img
     src="assets/payment-provider/mobile/ayapay.png"
     alt="ayapay"
     width="25%"
     class='mobile'
-    id='mobilePayImage'
+    value='ayapay'
+    onClick='clickEvent(this)'
   />
   <img
     src="assets/payment-provider/mobile/mytelpay.png"
     alt="mytelpay"
     width="25%"
     class='mobile'
-    id='mobilePayImage'
+    value='mytelpay'
+    onClick='clickEvent(this)'
   />
   <img
     src="assets/payment-provider/mobile/onepay.png"
     alt="onepay"
     width="25%"
     class='mobile'
-    id='mobilePayImage'
+    value='onepay'
+    onClick='clickEvent(this)'
   />
   <img
     src="assets/payment-provider/mobile/truemoney.png"
     alt="truepay"
     width="25%"
     class='mobile'
-    id='mobilePayImage'
+    value='truemoney'
+    onClick='clickEvent(this)'
   />
   <img
     src="assets/payment-provider/mobile/wavepay.png"
     alt="wavepay"
     width="25%"
     class='mobile'
-    id='mobilePayImage'
+    value='wavepay'
+    onClick='clickEvent(this)'
   />
     `;
 
-  if ($("#providersContainer").html().length === 0)
-    $("#providersContainer").append(images);
-  $("#paymentProvider").fadeIn();
+  if ($("#providersContainer").html().length === 0) $("#providersContainer").append(images);
+
+  $('#inputContainer').append('<input type="number" name="phone_number" id="number" placeholder="Phone Number">');
+
+  
+  $('#overLay').fadeIn(200,() =>{
+    $("#paymentProvider").fadeIn(205);
+  })
 });
 
 $("#bankPay").click(() => {
   const images = `
-    <img src="assets/payment-provider/bank/abank.png" alt="abank" width="25%" class="bank" id='bankPayImage' onClick='clickEvent(this)'/>
-    <img src="assets/payment-provider/bank/kbz.png" alt="kbz" width="25%" class="bank" id='bankPayImage' onClick='clickEvent(this)'/>
-    <img src="assets/payment-provider/bank/mab.png" alt="mab" width="25%" class="bank" id='bankPayImage' onClick='clickEvent(this)'/>
-    <img src="assets/payment-provider/bank/uab.png" alt="uab" width="25%" class="bank" id='bankPayImage' onClick='clickEvent(this)'/>
-    <img src="assets/payment-provider/bank/cb.png" alt="cb" width="25%" class="bank" id='bankPayImage' onClick='clickEvent(this)'/>
+    <img src="assets/payment-provider/bank/abank.png" alt="abank" width="25%" class="bank" value='abank' onClick='clickEvent(this)'/>
+    <img src="assets/payment-provider/bank/kbz.png" alt="kbz" width="25%" class="bank" value='kbzbank' onClick='clickEvent(this)'/>
+    <img src="assets/payment-provider/bank/mab.png" alt="mab" width="25%" class="bank" value='mabbank' onClick='clickEvent(this)'/>
+    <img src="assets/payment-provider/bank/uab.png" alt="uab" width="25%" class="bank" value='uabbank' onClick='clickEvent(this)'/>
+    <img src="assets/payment-provider/bank/cb.png" alt="cb" width="25%" class="bank" value='cbbank' onClick='clickEvent(this)'/>
     `;
 
-  if ($("#providersContainer").html().length === 0)
-    $("#providersContainer").append(images);
-  $("#paymentProvider").fadeIn();
+  if ($("#providersContainer").html().length === 0) $("#providersContainer").append(images);
+
+  $('#inputContainer').append('<input type="number" name="bank_acc_number" id="number" placeholder="Bank Acc Number">');
+  $('#overLay').fadeIn(200,() =>{
+    $("#paymentProvider").fadeIn(205);
+  })
+  
 });
 
 
-$('#providersContainer').children('img').click(() => {
-  console.log('mobilePay');
-})
 
 const clickEvent = (element) => {
-  console.log(element)
+$('#providersContainer').children('img.active').removeClass('active');
+  $(element).addClass('active');
+  userInfo.payment = $(element).attr('value');
 }
+
+$('#inputBtn').click(() => {
+  userInfo.name = $('#name').val();
+  userInfo[$('#number').attr('name')] = $('#number').val()
+  if(userInfo.name && userInfo.payment && userInfo[$('#number').attr('name')]){
+    localStorage.setItem('userData',JSON.stringify(userInfo));
+  }else{
+    console.log('user error'); //todo throw error
+  }
+  console.log();
+
+  if($('#number').attr('name').includes('bank')){
+    $("#bankPay").attr('click',true)
+  }else{
+    $("#mobilePay").attr('click',true)
+  }
+
+  $("#paymentProvider").fadeOut(200, () => {
+    $("#providersContainer").empty();
+    $('#number').remove();
+    $('#overLay').fadeOut(205)
+  });
+})

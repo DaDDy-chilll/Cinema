@@ -15,6 +15,7 @@
 </head>
 
 <body>
+
   <div class="body_background">
     <div class="background_img_container">
       <img src="assets/backgound/backgound1.svg" alt="backgound1" width="50%" />
@@ -72,7 +73,7 @@
         <div class="payment_method_container">
           <h1>payment methods</h1>
           <div class="payment_methods">
-            <div class="bank_pay" id="bankPay">
+            <div class="bank_pay" id="bankPay" click=false>
               <p>bank payments</p>
               <svg viewBox="0 0 278 198" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path
@@ -83,7 +84,7 @@
                   stroke-dasharray="20 20" />
               </svg>
             </div>
-            <div class="mobile_pay" id="mobilePay">
+            <div class="mobile_pay" id="mobilePay" click=true>
               <p>mobile payments</p>
               <svg viewBox="0 0 268 346" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path
@@ -151,13 +152,13 @@
       <div class="providers_container" id="providersContainer"></div>
       <div class="user_info_input">
         <p class="des">paid username and phone number</p>
-        <div class="input_container">
-          <input type="text" name="username" placeholder="Name">
-          <input type="number" name="phone" id="phone" placeholder="Phone Number">
+        <div class="input_container" id="inputContainer">
+          <input type="text" name="username" id="name" placeholder="Name">
         </div>
-        <button class="input_btn">confirm</button>
+        <button class="input_btn" id="inputBtn">confirm</button>
       </div>
     </div>
+    <div class="payment_provider_overlay" id="overLay"></div>
   </div>
 </body>
 

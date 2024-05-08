@@ -97,9 +97,9 @@ body {
 
 .main_secreen {
     background: rgba(255, 255, 255, 0.19);
+    backdrop-filter: blur(5.4px);
     border-radius: 16px;
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-    backdrop-filter: blur(5.4px);
     -webkit-backdrop-filter: blur(5.4px);
     z-index: 10;
     position: relative;
@@ -243,8 +243,13 @@ body {
 
 .payment_methods .bank_pay:hover,
 .payment_methods .mobile_pay:hover {
-    background-color: var(--primary-color);
+    /* background-color: var(--primary-color); */
+    transform: scale(1.1);
+}
 
+.payment_methods .bank_pay[click='true'],
+.payment_methods .mobile_pay[click='true'] {
+    background-color: var(--primary-color);
 }
 
 .bank_pay p,
@@ -256,14 +261,23 @@ body {
     transition: all .2s;
 }
 
-
-.payment_methods .bank_pay:hover p,
-.payment_methods .mobile_pay:hover p {
+.payment_methods .bank_pay[click='true'] p,
+.payment_methods .mobile_pay[click='true'] p {
     color: white;
 }
 
-.payment_methods .bank_pay:hover path,
+/* .payment_methods .bank_pay:hover p,
+.payment_methods .mobile_pay:hover p {
+    color: white;
+} */
+
+/* .payment_methods .bank_pay:hover path,
 .payment_methods .mobile_pay:hover path {
+    fill: white;
+} */
+
+.payment_methods .bank_pay[click='true'] path,
+.payment_methods .mobile_pay[click='true'] path {
     fill: white;
 }
 
@@ -401,6 +415,20 @@ body {
     border-radius: .5vmax;
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.445);
     display: none;
+    z-index: 10;
+}
+
+.main_secreen .payment_provider_overlay{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: gray;
+    border-radius: 1vmax;
+    background: rgba(0, 0, 0, 0.582);
+    backdrop-filter: blur(1px);
+    display: none;
 }
 
 .payment_provider .header {
@@ -434,9 +462,13 @@ body {
 }
 
 .payment_provider img:hover {
-    filter: grayscale(0);
+    transform: scale(1.1);
 
 }
+.payment_provider img.active{
+    filter: grayscale(0);
+}
+
 
 .payment_provider .bank:nth-child(1) {
     margin: 2% 5%;
