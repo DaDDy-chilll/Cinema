@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Inria+Sans&family=Jomolhari&family=Kanit&family=Jura:wght@300..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Inria+Sans&family=Jomolhari&family=Istok+Web&family=Kanit&family=Jura:wght@300..700&display=swap');
 
 :root {
     --primary-color: #3E8BFF;
@@ -103,7 +103,7 @@ body {
     -webkit-backdrop-filter: blur(5.4px);
     z-index: 10;
     position: relative;
-
+    width: 90%;
     /*todo Change Marge Day */
     /* margin-top: 5%; */ 
 }
@@ -111,14 +111,14 @@ body {
 .progress_bar {
     width: 100%;
     height: 10px;
-    margin-top: 5%;
+    margin-top: 2%;
     display: flex;
     align-items: center;
     padding: 0 10%;
 }
 
 .progress_bar .circle {
-    width: 20px;
+    width: 22px;
     height: 20px;
     border-radius: 100%;
     position: relative;
@@ -166,15 +166,35 @@ body {
     height: 50%;
     width: 50%;
     background-color: white;
+    position: relative;
     /* filter: ; */
+}
+
+.progress_bar .line:nth-child(2)::after{
+    content: '';
+    width: 0%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: var(--primary-color);
+
+}
+
+.progress_bar .line.active{
+    animation: activeLine 1s linear forwards;
 }
 
 
 /* Main Section Start */
+
+/* todo change display */
 .container {
     margin-top: 2%;
     display: flex;
+    /* display: none; */
 }
+
 
 .container .container_left {
     padding: 0 2%;
@@ -266,15 +286,6 @@ body {
     color: white;
 }
 
-/* .payment_methods .bank_pay:hover p,
-.payment_methods .mobile_pay:hover p {
-    color: white;
-} */
-
-/* .payment_methods .bank_pay:hover path,
-.payment_methods .mobile_pay:hover path {
-    fill: white;
-} */
 
 .payment_methods .bank_pay[click='true'] path,
 .payment_methods .mobile_pay[click='true'] path {
@@ -574,3 +585,199 @@ body {
 .user_info_input .input_btn:hover {
     background-color: #0e8bff8e;
 }
+
+
+/* todo change display */
+.payout_container{
+    display: none;
+    width: 100%;
+    text-align: center;
+}
+
+
+.payout_container .ticket_container{
+    margin: 9% auto 2% auto;
+    width: 50%;
+    background-color: var(--secondary-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    position: relative;
+    border-radius: .5vmax;
+}
+
+.payout_container .ticket_container::after{
+    content: "";
+    width: 100px;
+    height: 100px;
+    border-radius: 100%;
+    background-color: #545f71;
+    position: absolute;
+    bottom: 20%;
+    left: -8%;
+}
+
+.payout_container .ticket_container::before{
+    content: "";
+    width: 100px;
+    height: 100px;
+    border-radius: 100%;
+    background-color: #545f71;
+    position: absolute;
+    bottom: 20%;
+    right: -8%;
+}
+
+
+.payout_container .ticket_icon{
+    position: absolute;
+    top: -15%;
+    width: 110px;
+    height: 110px;
+    padding: 1%;
+    border-radius: 100%;
+    background-color: #545f71;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.payout_container .ticket_detail{
+    width: 70%;
+    padding: 2%;
+}
+
+.ticket_detail h1{
+    text-align: center;
+    margin-top: 15%;
+    text-transform: capitalize;
+    font-family: "Istok Web", sans-serif;
+    color: white;
+}
+
+.ticket_detail .ticket_info{
+   width: 100%;
+   text-align: center;
+}
+
+.ticket_detail .ticket_info span{
+    display: flex;
+    width: 100%;
+    /* justify-content: center;
+    align-items: center; */
+}
+.ticket_info span p{
+    margin: 1%;
+    font-family: "Istok Web", sans-serif;
+    text-transform: capitalize;
+    color: white;
+
+}
+.ticket_info span p:first-child{
+    width: 50%;
+    text-align: start;
+    padding-left: 10%;
+    /* margin-left: 15%; */
+}
+
+.ticket_info span p:last-child{
+    width: 100%;
+    text-align: start;
+    padding-left: 5%;
+
+}
+
+.payout_container .order_btn{
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    padding: .5% 5%;
+    background-color: var(--secondary-color);
+    color: white;
+    border: none;
+    border-radius: .5vmax;
+    margin-bottom: 1%;
+    transition: all .2s;
+}
+
+.payout_container .order_btn:hover{
+    cursor: pointer;
+    background-color: white;
+    border: 1px solid var(--secondary-color);
+    color: var(--secondary-color);
+}
+
+/* todo change dispaly */
+.payment_success_container{
+    display: none;
+    width: 100%;
+    height: 70vh;
+    margin: 3% auto .5% auto;
+    text-align: center;
+}
+
+.payment_success_container .success_icon_container{
+    background-color: #0e8bff50;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 300px;
+    height: 300px;
+    border-radius: 100%;
+    position: relative;
+}
+
+.payment_success_container .success_icon_container::after{
+    content: '';
+    width:200px;
+    height:200px;
+    position: absolute;
+    top: calc(300px - 250px);
+    left:  calc(300px - 250px);
+    background-color: #0e8bff87;
+    border-radius: 100%;
+}
+
+.success_icon_container .success_circle{
+    width: 40%;
+    height: 40%;
+    border-radius: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--secondary-color);
+    z-index: 10;
+}
+
+.payment_success_container h1{
+    font-size: 2rem;
+    text-transform: capitalize;
+    font-family: "Inter", sans-serif;
+    color: white;
+}
+
+.payment_success_container .ticket_download{
+    font-size: 1.5rem;
+    font-family: "Inter", sans-serif;
+    font-weight: 200;
+    text-transform: capitalize;
+    padding:  2%;
+    border-radius: .5vmax;
+    border: none;
+    background-color: var(--secondary-color);
+    color: white;
+    transition: all .2s;
+    cursor: pointer;
+}
+
+.payment_success_container .ticket_download:hover{
+    color: var(--secondary-color);
+    background-color: white;
+    border: 1px solid var(--secondary-color);
+}
+
+/* .payment_success_container .ticket_download i{
+    padding-left: 1%;
+} */

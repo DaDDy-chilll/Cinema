@@ -15,42 +15,59 @@ const json = {
   ],
 };
 
-
-
-const {cinema,movie,poster,showDate,showTime,foodItems,totalSeats,seats} = json;
-const totalFoodPrice = foodItems.reduce((acc,item) => acc + (item.price * item.quantity),0); //!ask to hste paing
-const totalSeatPrice = seats.reduce((acc,item) => acc + item.seatPrice,0);
+const {
+  cinema,
+  movie,
+  poster,
+  showDate,
+  showTime,
+  foodItems,
+  totalSeats,
+  seats,
+} = json;
+const totalFoodPrice = foodItems.reduce(
+  (acc, item) => acc + item.price * item.quantity,
+  0
+);
+const totalSeatPrice = seats.reduce((acc, item) => acc + item.seatPrice, 0);
 const totalPrice = totalFoodPrice + totalSeatPrice;
-const tax = 10
-const addTaxPrice = parseInt(totalPrice * tax /100);
+const tax = 10;
+const addTaxPrice = parseInt((totalPrice * tax) / 100);
 const totalPriceWithTax = totalPrice + addTaxPrice;
 const userInfo = {};
 
 // Getters and Setter for User Information
 (() => {
-  $('#movieName').text(movie);
-  $('#showDate').text(showDate);
-  $('#showTime').text(showTime);
-  $('#cinema').text(cinema);
-  $('#totalSeats').text(totalSeats);
-  $('#ticketPrice').text(`${totalSeatPrice} Ks`);
-  $('#foodPrice').text(`${totalFoodPrice} Ks`);
-  $('#tax').text(`${tax}%`);
-  $('#totalPrice').text(`${totalPriceWithTax} Ks`);
-})()
+  $("#movieName").text(movie);
+  $("#showDate").text(showDate);
+  $("#showTime").text(showTime);
+  $("#cinema").text(cinema);
+  $("#totalSeats").text(totalSeats);
+  $("#ticketPrice").text(`${totalSeatPrice} Ks`);
+  $("#foodPrice").text(`${totalFoodPrice} Ks`);
+  $("#tax").text(`${tax}%`);
+  $("#totalPrice").text(`${totalPriceWithTax} Ks`);
 
+  userInfo.moviename = movie;
+  userInfo.showDate = showDate;
+  userInfo.showTime = showTime;
+  userInfo.cinema = cinema;
+  userInfo.totalSeats  = totalSeats
+  userInfo.totalSeatPrice = totalSeatPrice;
+  userInfo.totalFoodPrice = totalFoodPrice;
+  userInfo.totalPrice = totalPriceWithTax;
+})();
 
 $("#paymentCloseBtn").click(() => {
   $("#paymentProvider").fadeOut(200, () => {
     $("#providersContainer").empty();
-    $('#number').remove();
-    $('#overLay').fadeOut(205)
+    $("#number").remove();
+    $("#overLay").fadeOut(205);
   });
-  
-
 });
 
 $("#mobilePay").click(() => {
+  if ($("#mobilePay").attr("choose") === "true") return;
   const images = `
     <img
     src="assets/payment-provider/mobile/cbpay.png"
@@ -118,17 +135,20 @@ $("#mobilePay").click(() => {
   />
     `;
 
-  if ($("#providersContainer").html().length === 0) $("#providersContainer").append(images);
+  if ($("#providersContainer").html().length === 0)
+    $("#providersContainer").append(images);
 
-  $('#inputContainer').append('<input type="number" name="phone_number" id="number" placeholder="Phone Number">');
+  $("#inputContainer").append(
+    '<input type="number" name="phone_number" id="number" placeholder="Phone Number">'
+  );
 
-  
-  $('#overLay').fadeIn(200,() =>{
+  $("#overLay").fadeIn(200, () => {
     $("#paymentProvider").fadeIn(205);
-  })
+  });
 });
 
 $("#bankPay").click(() => {
+  if ($("#bankPay").attr("choose") === "true") return;
   const images = `
     <img src="assets/payment-provider/bank/abank.png" alt="abank" width="25%" class="bank" value='abank' onClick='clickEvent(this)'/>
     <img src="assets/payment-provider/bank/kbz.png" alt="kbz" width="25%" class="bank" value='kbzbank' onClick='clickEvent(this)'/>
@@ -137,42 +157,119 @@ $("#bankPay").click(() => {
     <img src="assets/payment-provider/bank/cb.png" alt="cb" width="25%" class="bank" value='cbbank' onClick='clickEvent(this)'/>
     `;
 
-  if ($("#providersContainer").html().length === 0) $("#providersContainer").append(images);
+  if ($("#providersContainer").html().length === 0)
+    $("#providersContainer").append(images);
 
-  $('#inputContainer').append('<input type="number" name="bank_acc_number" id="number" placeholder="Bank Acc Number">');
-  $('#overLay').fadeIn(200,() =>{
+  $("#inputContainer").append(
+    '<input type="number" name="bank_acc_number" id="number" placeholder="Bank Acc Number">'
+  );
+  $("#overLay").fadeIn(200, () => {
     $("#paymentProvider").fadeIn(205);
-  })
-  
+  });
 });
 
-
-
 const clickEvent = (element) => {
-$('#providersContainer').children('img.active').removeClass('active');
-  $(element).addClass('active');
-  userInfo.payment = $(element).attr('value');
-}
+  $("#providersContainer").children("img.active").removeClass("active");
+  $(element).addClass("active");
+  userInfo.payment = $(element).attr("value");
+};
 
-$('#inputBtn').click(() => {
-  userInfo.name = $('#name').val();
-  userInfo[$('#number').attr('name')] = $('#number').val()
-  if(userInfo.name && userInfo.payment && userInfo[$('#number').attr('name')]){
-    localStorage.setItem('userData',JSON.stringify(userInfo));
-  }else{
-    console.log('user error'); //todo throw error
+$("#inputBtn").click(() => {
+  userInfo.name = $("#name").val();
+  userInfo[$("#number").attr("name")] = $("#number").val();
+  if (
+    userInfo.name &&
+    userInfo.payment &&
+    userInfo[$("#number").attr("name")]
+  ) {
+    localStorage.setItem("userData", JSON.stringify(userInfo));
+  } else {
+    console.log("user error"); //todo throw error
   }
-  console.log();
 
-  if($('#number').attr('name').includes('bank')){
-    $("#bankPay").attr('click',true)
-  }else{
-    $("#mobilePay").attr('click',true)
+  if ($("#number").attr("name").includes("bank")) {
+    $("#bankPay").attr("click", true);
+  } else {
+    $("#mobilePay").attr("click", true);
   }
+
+  $("#bankPay").attr("choose", true);
+  $("#mobilePay").attr("choose", true);
 
   $("#paymentProvider").fadeOut(200, () => {
     $("#providersContainer").empty();
-    $('#number').remove();
-    $('#overLay').fadeOut(205)
+    $("#number").remove();
+    $("#overLay").fadeOut(205);
   });
+});
+
+
+$('#paynowBtn').click(() => {
+  $('#checkoutContainer').fadeOut(200,() => {
+    getUserFromLocalStorage()
+    $('#payoutContainer').fadeIn(205)
+  });
+
+
+})
+
+const getUserFromLocalStorage = () => {
+  const {name,moviename,bank_acc_number,cinema,payment,showDate,showTime,totalPrice,totalSeats} = JSON.parse(localStorage.getItem('userData'))
+
+  const userTicket =`
+  <div class="ticket_info">
+  <span>
+    <p>movie name</p>
+    <p>${moviename}</p>
+  </span>
+
+  <span>
+    <p>name</p>
+    <p>${name}</p>
+  </span>
+
+  <span>
+    <p>Acc Number</p>
+    <p>${bank_acc_number}</p>
+  </span>
+
+  <span>
+    <p>seat</p>
+    <p>${totalSeats}</p>
+  </span>
+
+  <span>
+    <p>seat number</p>
+    <p>b2 / b3</p>
+  </span>
+
+  <span>
+    <p>food</p>
+    <p>Cola x1 / Hot Dog x2</p>
+  </span>
+
+  <span>
+    <p>Date/Time</p>
+    <p>${showDate} / ${showTime}</p>
+  </span>
+
+  <span>
+    <p>payment</p>
+    <p>${payment}</p>
+  </span>
+
+  <span>
+    <p>Total Price</p>
+    <p>${totalPrice} Ks</p>
+  </span>
+ </div>
+  `
+
+  $('#ticketDetail').append(userTicket)
+}
+
+$('#orderBtn').click(() => {
+  $('#payoutContainer').fadeOut(200,() => {
+    $('#paymentSuccess').fadeIn(205)
+  })
 })
